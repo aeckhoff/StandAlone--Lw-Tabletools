@@ -1,0 +1,50 @@
+<?php if ($this->connected != 1): ?>
+    <div id="login_status">
+        <form action="<?php echo $this->url ?>" method="post">
+            <h3>Connect to Database</h3>
+
+            <table>
+                <tr>
+                    <td class="label">Typ</td>
+                    <td class="input"><input type="radio" name="db_type" value="mysql" checked="checked"> Mysql <input type="radio" name="db_type" value="oracle"> Oracle</td>
+                </tr>
+                <tr>
+                    <td class="label">User</td>
+                    <td class="input"><input type="text" name="user"></td>
+                </tr>
+                <tr>
+                    <td class="label">Pass</td>
+                    <td class="input"><input type="password" name="pass"></td>
+                </tr>
+                <tr>
+                    <td class="label">Host</td>
+                    <td class="input"><input type="text" name="host"></td>
+                </tr>
+                <tr>
+                    <td class="label">DB</td>
+                    <td class="input"><input type="text" name="db"></td>
+                </tr>
+            </table>
+            <input type="submit" value="Connect" class="submit">
+            <input type="hidden" name="sent" value="1">
+        </form>
+    </div>
+<?php endif; ?>
+<?php if ($this->connected == 1): ?>
+    <div id="login_status">
+        <h3>Connected</h3>
+
+        <table>
+            <tr>
+                <td class="label">Typ</td>
+                <td class="input"><?php echo $this->db_type ?></td>
+            </tr>
+            <tr>
+                <td class="label">DB</td>
+                <td class="input"><?php echo $this->connected_db ?></td>
+            </tr>
+        </table>
+
+        <input type="button" value="Diconnect" onclick="self.location.href='<?php echo $this->disconurl ?>';">
+    </div>
+<?php endif; ?>

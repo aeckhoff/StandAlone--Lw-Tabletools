@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Logic-Works Tabletools 0.3</title>
+        <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+        
+        <link href="<?php echo $this->url_css ?>" rel="stylesheet" type="text/css"/>                
+        <link href="<?php echo $this->url_module_css ?>" rel="stylesheet" type="text/css"/>                
+
+    </head>
+    <body>
+
+
+        <div id="lwSubnavi">
+            <div class="lwBoxSubNavi" id="lwBoxSubNaviSpacer">&nbsp;</div>
+            <div class="lwBoxSubNaviNoBack" id="lwPageID">&nbsp;</div>
+            <div class="lwBoxSubNavi">&nbsp;</div>
+        </div>
+
+        <div id="lwLeftnavi">
+            <div class="lwBoxLeftnavi"><?php if($this->obj) { echo "SELECTED: ".ucfirst($this->obj); } ?><?php if($this->module) { echo " >>> ".ucfirst($this->module); } ?></div>
+            <div class="lwBoxLeftContent">
+                <div id="contentLeft" style="overflow-x: scroll; overflow-y: visible; height: 100%;">
+                    <?php echo $this->leftContent ?>
+                </div>
+            </div>
+            <div class="lwBoxLeftContentCap">&nbsp;</div>
+        </div>
+
+        <div id="lwTopnavi">
+            <div class="lwBoxTopnavi" id="lwLogo" onClick="self.location.href='<?php echo $this->url ?>';">[ Logic-Works ]</div>
+            <?php foreach($this->modules as $value): ?>
+            <div class="lwBoxTopnavi" onClick="self.location.href='<?php echo $this->url ?>?obj=<?php echo $this->obj ?>&module=<?php echo lcfirst($value) ?>';"><?php echo $value ?></div>
+            <?php endforeach; ?>
+            <div class="lwBoxTopnaviNoHover">&nbsp;</div>
+        </div>
+
+        <div id="lwContent">
+            <?php echo $this->content ?>
+        </div>        
+
+    </body>
+</html>

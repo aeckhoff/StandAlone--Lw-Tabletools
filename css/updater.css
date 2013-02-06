@@ -1,0 +1,68 @@
+#status_table h3{
+    padding-bottom: 20px;
+    font-size: 15px;
+}
+
+
+#status_table td, #status_table th{
+    padding: 2px;
+}
+
+#status_table table th{
+    text-align: left;
+    border: 1px solid #222;
+    background-color: #BFBFBF;
+}
+
+#status_table table tbody tr.odd{
+    background-color: #EEEEEE;
+}
+
+#status_table table tbody tr.even{
+    background-color: #E3E3E3;
+}
+
+
+#login_status{
+    padding: 20px 0;
+    border-bottom: 2px solid #fff;
+}
+
+#login_status td{
+    width: 50px;
+    padding: 5px 5px 5px 15px;
+    color: #fff;
+
+}
+
+#login_status h3{
+    margin-left: 15px;
+    color: #fff;
+}
+
+#login_status input{
+    margin-left: 15px;
+}
+
+#file_upload{
+    padding: 20px 0;
+    padding-left: 15px;
+    color: #fff;
+}
+
+#file_upload form{
+    color: #fff;
+}
+
+#file_upload h3{
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+#file_upload input.btn{
+    margin-top: 15px;
+}
+
+#file_upload pre code {
+    color: #fff;
+}

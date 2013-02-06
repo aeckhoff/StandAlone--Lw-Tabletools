@@ -1,0 +1,64 @@
+<?php if ($this->showXml == 1): ?>
+    <fieldset class="lwadminform">
+        <legend class="lwadminform">Xml</legend>
+        
+        <textarea style="width:100%; height:400px;" name="pagecomment" readonly>
+            <?php echo trim($this->xml) ?>
+        </textarea>
+
+    </fieldset>
+<?php endif; ?>
+
+<?php if ($this->showTable == 1): ?>
+    <fieldset class="lwadminform">
+        <legend class="lwadminform">Export Info</legend>
+        <div id="status_table">
+
+            <h3>EXPORT</h3>
+            <form action="<?php echo $this->url ?>" method="post">
+                Prefixfilter <input type="text" name="prefix_filter" value="<?php echo $this->filter ?>" size="6" /> <input type="submit" value="go"><br/>
+            </form>
+            <br/>
+            <form action="<?php echo $this->url . "&export=1" ?>" method="post">
+
+                Download <input type="checkbox" name="download" value="1" /><br/><br/>
+                <select name="type">
+                    <option value="structure">Struktur</option>
+                    <option value="data">Daten</option>
+                </select>
+                <input type="submit" value="exportieren">
+
+                <table class="lwPageCommentTable" style="width:90%">
+                    <thead>
+                        <tr>
+                            <th style="width: 13px;">&nbsp;</th>
+                            <th>Table</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $oddeven = "even" ?>
+                        <?php foreach($this->tables as $table) :?>
+                        <?php
+                        if ($oddeven == "even") {
+                            $oddeven = "odd";
+                        } else {
+                            $oddeven = "even";
+                        }
+                        ?>
+                        <tr class="<?php echo $oddeven ?>">
+                            <?php if(isset($this->selectedTables[$table])): ?>
+                                <td><input type="checkbox" name="tables[<?php echo $table ?>]" value="1" checked="checked"></td>
+                            <?php else: ?>
+                                <td><input type="checkbox" name="tables[<?php echo $table ?>]" value="1"></td>
+                            <?php endif; ?>
+                            <td><?php echo $table ?></td>    
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+            </form>
+
+        </div>
+    </fieldset>
+<?php endif; ?>

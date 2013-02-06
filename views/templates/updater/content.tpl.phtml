@@ -1,0 +1,85 @@
+<?php if ($this->error == 1): ?>
+    <fieldset class="lwadminform">
+        <legend class="lwadminform">Info</legend>
+        <div id="error_table_existance">
+            <h3>Table not exsting - use Import for creation!</h3>
+        </div>
+    </fieldset>
+<?php endif; ?>
+<?php if ($this->showUploadFieldset == 1): ?>
+    <fieldset class="lwadminform">
+        <legend class="lwadminform">Upload Xml</legend>
+
+        <form action="<?php echo $this->url ?>" method="post" enctype="multipart/form-data">
+            Datei&nbsp;&nbsp;&nbsp;<input type="file" name="xml" class="file" /><br/><br/>
+            <textarea style="width:100%; height:400px;" name="xml_text"></textarea><br/><br/>
+            <input class="btn" type="submit" value="Upload" class="submit">
+            <input type="hidden" name="upload" value="1">
+        </form>
+    </fieldset>
+<?php endif; ?>
+<?php if ($this->showTable == 1): ?>
+    <fieldset class="lwadminform">
+        <legend class="lwadminform">TableInfo</legend>
+        <div id="status_table">
+            <?php if($this->error == 1): ?>
+            <h3>Table is not existing - use import for creation!</h3>
+            <?php endif; ?>
+            <?php if($this->error == 0): ?>
+            <h3>"<?php echo $this->tablename ?>"</h3>
+
+
+            <input type="button" value="run allowed updates" onclick="self.location.href='<?php echo $this->url ?>';"><br/><br/>
+
+            <table class="lwPageCommentTable" style="width:90%">
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Attribute</th>                    
+                        <th>Fieldtype</th>
+                        <th>Fieldsize</th>
+                        <th>Modus</th>
+                        <th>Type</th>
+                        <th>Targetsize</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $oddeven = "even" ?>
+                    <?php foreach ($this->preparedArray as $value): ?>
+                    <?php 
+                        if($oddeven == "even") {
+                            $oddeven = "odd";
+                        } else{
+                            $oddeven = "even";
+                        }
+                    ?>
+                        <tr class="<?php echo $oddeven ?>">
+                            <td><?php echo $value["source"] ?></td>
+                            <td><?php echo $value["attr"] ?></td>
+                            <td><?php echo $value["fieldtype"] ?></td>
+                            <td><?php echo $value["fieldsize"] ?></td>
+                            <td><?php echo $value["modus"] ?></td>
+                            <td><?php echo $value["type"] ?></td>
+                            <td><?php echo $value["targetsize"] ?></td>
+                            <td style="background-color: <?php echo $value["status"] ?> ">&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <br/><input type="button" value="run allowed updates" onclick="self.location.href='<?php echo $this->url ?>';"><br/><br/>
+            <?php endif; ?>
+        </div>
+    </fieldset>
+<?php endif; ?> 
+<?php if ($this->showXml == 1): ?>
+    <fieldset class="lwadminform">
+        <legend class="lwadminform">Xml</legend>
+
+        <textarea style="width:100%; height:400px;" name="pagecomment" readonly>
+            <?php echo trim($this->xml) ?>
+        </textarea>
+
+    </fieldset>
+<?php endif; ?>

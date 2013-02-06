@@ -1,0 +1,1128 @@
+/* ######################################################################################################
+** ### 
+** ###  Basic Formatierungen
+*/        	
+
+* 
+{ 
+    margin:0; 
+    padding:0; 
+    font-size: 100.01%;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    letter-spacing:0.02em;
+    color: #4B4B4B;
+    color: #222;
+} 
+
+body 
+{
+    position:relative;
+    font-size:0.8em;
+    color: #000;
+    background: #7f7f7f;
+    text-align: left;
+    height:100.01%;
+}    
+
+fieldset, img  { border:0; }
+a { text-decoration:none; }
+ul, ol, dl { margin: 0 0 1em 1em }
+
+li 
+{ 
+    margin-left: 1.5em; 
+    line-height: 1.5em; 
+}
+
+dt { font-weight: bold; }
+dd { margin: 0 0 1em 2em; }
+
+blockquote, cite 
+{ 
+    margin: 0 0 1em 1.5em; 
+    font-size: 0.93em; 
+    width: auto;
+}
+
+.skip 
+{
+    position: absolute;
+    left: -1000em; 
+    width: 20em;
+}
+
+a.cContentLink { color:#ffffff; }
+
+a.cFormLink
+{
+    color:#ffffff;
+    background-color:#333;
+    padding:2px 4px;
+}
+
+a.imagelink
+{
+    background-color:#ccc;
+    color:#ffffff;
+}
+
+/* ###  Basic Formatierungen
+** ### 
+** ######################################################################################################
+*/        	
+
+/* ######################################################################################################
+** ### 
+** ###  Grundstruktur
+*/  
+
+#lwTopnavi
+{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:50px;
+    background-color:#333;
+    border-bottom:1px solid #FFFFFF;
+}
+
+.lwBoxTopnavi, .lwBoxTopnaviNoHover
+{
+    font-size:12px;
+    height:50px;
+    color:#FFFFFF;
+    float:left;
+    padding-left:12px;
+    padding-right:12px;
+    line-height:45px;
+    border-left:1px #ffffff solid;
+}
+
+div.lwBoxTopnavi
+{
+    cursor:pointer;
+}
+
+div.lwBoxTopnavi:hover
+{
+    background-color:#8F8E93;
+}
+
+.lwBoxTopnavi a
+{
+    text-decoration:none;
+    color:#FFFFFF;
+}
+
+#lwLogo
+{
+    width:100px;
+    border-left:0px;
+}
+
+#lwSubnavi
+{
+    position:absolute;
+    top:51px;
+    left:0px;
+    width:100%;
+    height:30px;
+    line-height:30px;
+    border-top:1px solid #FFFFFF;
+    border-bottom:2px solid #FFFFFF;
+    background-color:#f7941d;
+}
+
+.lwBoxSubNavi, .lwBoxSubNaviNoBack
+{
+    font-size:12px;
+    height:30px;
+    color:#000000;
+    float:left;
+    padding-left:25px;
+    padding-right:12px;
+    line-height:30px;
+    border-left:2px #ffffff solid;
+    background-repeat: no-repeat; 
+    background-position:5% 50%;
+}
+
+.lwBoxSubNavi { cursor:pointer; }
+
+
+.lwAdminTabActive
+{
+    background-color:#f7941d;
+    color:#ffffff;
+}
+
+.lwBoxSubNaviNoBack
+{
+    padding-left:12px;
+}
+
+#lwBoxSubNaviSpacer
+{
+    width:302px;
+    padding-left:0px;
+    padding-right:0px;
+    border-left:0px;
+}
+
+#lwPageID
+{
+    border-left:0px;
+    font-weight:normal;
+}
+
+#lwLeftnavi
+{
+    position:absolute; 
+    top:0px; 
+    left:0px; 
+    width:300px; 
+    height:100%;
+    background-color:#7f7f7f;
+    color:#fff;
+}
+
+.lwBoxLeftnavi
+{
+    position:relative;
+    top:51px;
+    background-color:#0072bb;
+    background-repeat: no-repeat; 
+    background-position:95% 50%;
+    border-top:1px #FFFFFF solid;
+    border-bottom:1px #FFFFFF solid;
+    border-right:2px #FFFFFF solid;
+    height:30px;
+    line-height:30px;
+    padding-left:10px;
+    cursor:pointer;
+    color:#fff;
+}
+
+div.lwBoxLeftContent
+{
+    position:relative;
+    top:51px;
+    background-color:#4095cc;
+    border-top:1px #FFFFFF solid;
+    border-bottom:1px #FFFFFF solid;
+    border-right:2px #FFFFFF solid;
+    padding-left:0px;
+}
+
+div.lwBoxLeftContentCap
+{
+    position:relative;
+    top:51px;
+    background-color:#7f7f7f;
+    border-top:1px #FFFFFF solid;
+    padding-left:10px;
+}
+
+#lwContent
+{
+    margin-left:302px;
+    margin-right:0px;
+    padding-top:82px;
+    overflow:auto;
+}
+
+/* ###  Grundstruktur
+** ### 
+** ######################################################################################################
+*/       
+
+/* ######################################################################################################
+** ### 
+** ###  Formularelemente
+*/      		
+
+.formbox, .cTextbox, #cPageMetaInfo, #cPluginMetaInfo
+{
+    padding-left:10px;
+    margin-bottom:20px;
+}
+
+#cPageMetaInfo, #cPluginMetaInfo
+{
+    border:1px solid #E3E3E3;
+    background-color:white;
+    margin:10px;
+    width:400px;
+    display:none;
+}
+
+.cFormDescription
+{
+    float:left;
+    width:215px;
+    font-size:12px;
+}
+
+.cFormField
+{
+    margin-left:215px;
+}
+
+.cFormEntry
+{
+    margin-bottom:5px;
+}
+
+.cFormButton, .cFormSubmit
+{
+    border-style:none;
+    cursor:pointer;
+    color:#fff;
+    background-color:#7f7f7f;
+    margin:0;
+    margin-left:5px;
+    padding:0;
+}
+
+#cformButtons
+{
+    margin-bottom:10px;
+}
+
+#cformHeader
+{
+    position:relative;
+    font-size:14px;
+    font-weight:bold;
+    margin:10px;
+    padding-left:5px;
+}
+
+#cformControls
+{
+    position:relative;
+    font-size:12px;
+    font-weight:normal;
+    margin-left:10px;
+    padding-left:5px;
+}
+.cComment
+{
+    font-size:0.8em;
+}
+
+input, select
+{
+    font-family:verdana,arial,sans-serif;
+    font-size:12px;
+}
+
+option { background-color:#fff; }
+
+textarea
+{
+    font-family:verdana,arial,sans-serif;
+    font-size:12px;
+}
+
+.cboxFormInput
+{
+    display:block;
+    width:100%;
+    left:0px;
+}			
+
+.cboxFormField
+{
+    margin-top:10px;
+    width:600px;
+}
+
+/* neu */
+
+fieldset a
+{
+    background-color:#333;	
+    color:white;
+    padding:1px 4px;
+    line-height:22px;
+}
+
+fieldset.lw_error 
+{
+    margin: 12px;
+    padding: 0.5em;
+    border: 1px solid #cc0000;
+    background-color:#fff;
+}
+
+legend.lw_error 
+{
+    padding:0.2em 0.4em;
+    font-size: 12px;
+    font-weight: bold;
+    color: #cc0000;
+    background-color:#fff;
+    border: 1px solid #cc0000;
+}
+
+fieldset.lwadminform 
+{
+    margin: 12px;
+    padding: 0.5em;
+    border: 1px solid #000000;
+    background-color:#dfdfdf;
+}
+
+legend.lwadminform 
+{
+    border:1px #000 solid;
+    background-color:#dfdfdf;
+    padding:0.2em 0.4em;
+    font-size: 12px;
+    color: #000;
+}
+
+label.lwadminform 
+{ 
+    float: left; 
+    text-align: right; 
+    width: 11em;
+    margin-right: 0.3em;
+    margin-top: 0.7em;
+    clear: both;
+}
+
+input.textbox 
+{
+    margin-top: .7em;
+    width:400px;
+}
+
+input.radiobox 
+{
+    margin-top: .7em;
+}
+
+input.checkbox 
+{
+    margin-top: .7em;
+}
+
+textarea.textbox_mehrzeilig 
+{
+    height:6em;
+    width:400px;
+    margin-top: .7em;
+}			
+
+select.textbox_select 
+{
+    margin-top: .7em;
+}			
+
+.cFormSubmit
+{
+    text-align:left;
+}
+
+input.formbutton, input.formbutton2
+{
+    font-size: 1em;
+    cursor: pointer;
+    color: #fff;
+    border:0px solid #333;
+    background-color: #333;
+    margin-top:0.7em;
+    padding:0 5px 0 5px;
+}			
+
+input.formbutton
+{
+    margin-left: 11.55em;
+}			
+
+.commentbox
+{
+    margin-top: .8em;
+    margin-left:11em;
+}
+
+/* neu */
+
+div.cboxFormField {
+    margin-bottom:20px;
+}
+
+div.cboxFormTitle {
+    float:left;
+    width:150px;
+}
+
+div.cboxFormInput {
+    margin-left:160px;
+}
+
+a.boxlink { color:#fff; }
+a:hover.boxlink { color:#000; }
+
+div.lw_adminform_infotext {
+    margin:5px;
+    padding:10px 5px;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+    background-color:#eee;
+    text-align:center;
+}
+
+div.lw_adminform_footnote {
+    margin:5px;
+    padding:10px 5px;
+    border-top:1px dashed black;
+    text-align:left;
+}
+
+
+div.lw_fe_formfield_error
+{
+    color:#c00;
+    margin-left:160px;
+}
+
+div.lw_fe_form_error {
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    background-color:#eee;
+    text-align:center;
+    color:#c00;
+}
+
+/* ###  Formularelemente
+** ### 
+** ######################################################################################################
+*/      		
+
+
+/* ######################################################################################################
+** ### 
+** ###  neue Formularelemente
+*/ 
+
+div.lw_form div.lw_entry:after {
+    content: ".";
+    display:block;
+    clear:left;
+    height:0;
+    visibility:hidden;
+}
+
+div.lw_form div.lw_entry {
+    display:inline-block;
+}
+
+/* ohne IE Mac \*/
+
+* html div.lw_form div.lw_entry {
+    height:1%;
+}
+
+div.lw_form div.lw_entry {
+    display:block;
+}
+
+/* Ende ohne IE Mac */
+
+div.lw_form h1 {
+    font-size:14px;
+    font-weight:bold;
+}
+
+div.lw_form div.lw_infobox {
+    margin:5px;
+    padding:10px 5px;
+    border-top:1px dotted black;
+    border-bottom:1px dotted black;
+    background-color:#eee;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+div.lw_form div.lw_footnote {
+    margin:5px;
+    padding:10px 5px;
+    border-top:1px dashed black;
+    text-align:left;
+}
+
+div.lw_form div.lw_entry {
+    margin-bottom:10px;
+}
+
+div.lw_form div.lw_entry div.lw_contentwrapper {
+    width:940px;
+    float:left;
+}
+
+div.lw_form div.lw_contentwrapper label {
+    float:left;
+    width:170px;
+    text-align:right;
+    padding-right:2px;
+}
+
+div.lw_form div.lw_contentwrapper div.lw_content {
+    float:left;
+    width:380px;
+}
+
+div.lw_form div.lw_contentwrapper div.lw_content input,
+div.lw_form div.lw_contentwrapper div.lw_content textarea,
+div.lw_form div.lw_contentwrapper div.lw_content select {
+    width:370px;
+}
+
+div.lw_form div.lw_contentwrapper div.lw_content textarea {
+    height:80px;
+}
+
+div.lw_form div.lw_contentwrapper div.lw_comment {
+    float:left;
+    width:380px;
+}
+
+div.lw_form div.lw_functions_top, div.lw_form div.lw_functions_bottom {
+    width:600px;
+    margin-left:170px;
+} 
+
+div.lw_form div.lw_functions_bottom {
+    margin-top:20px;
+    margin-bottom:15px;
+}
+
+sup.lw_footnote {
+    font-weight:bold;
+    font-size:10px;
+    line-height:0;
+}		
+
+div.lw_form div.lw_description {
+    width:600px;
+    margin-left:170px;			
+}
+
+div.lw_form div.lw_description span {
+    display:block;
+    width:600px;
+}
+
+div.lw_form div.lw_description .lw_file_image {
+    width:600px;
+}
+
+div.lw_form div.lw_error ul li{
+    color:#c00;
+    margin-left:160px;
+    list-style:none;
+    margin-top:8px;
+}
+
+div.lw_form div.lw_erroralert {
+    border-top:1px dotted black;
+    border-bottom:1px dotted black;
+    background-color:#fff;
+    padding:5px;
+    margin-bottom:10px;
+}
+
+div.lw_form div.lw_error span {
+    color:#c00;
+}
+
+/* ###  neue Formularelemente
+** ### 
+** ######################################################################################################
+*/ 
+
+/* ######################################################################################################
+** ### 
+** ###  linke Navigation
+*/      		
+
+div.lwBoxLeftContent
+{
+    padding-bottom:5px;
+    padding-top:5px;
+}
+
+div.lwBoxLeftContent div
+{
+    display:block;
+    text-decoration:none;
+}		
+
+div.lwBoxLeftContent a
+{
+    color:#fff;				
+    line-height:16px;
+}
+
+div.lwBoxLeftContent div.cNavEntryActive a
+{
+    font-weight:bold;
+}
+
+.cNavPlussign
+{
+    font-size:9px;
+    float:left;
+    width:12px;
+}
+
+.cNavPageID
+{
+    font-size:9px;
+    color:#fff;
+    margin-left:5px;
+}
+
+.cNavLink
+{
+    color:#fff;
+    line-height:20px;
+    white-space:nowrap;
+    margin-left:12px;
+}
+
+* html .cNavLink
+{
+    white-space:normal;
+    height:20px;
+    margin-left:20px;
+}
+
+div.cNavLine, div.cNavLine a
+{
+    line-height:20px;
+}			
+
+div.cNavLine:hover, div.cNavLine a:hover
+{
+    background-color:#0072bb;
+    line-height:20px;
+}
+
+.cNavLinkNotInProject
+{
+    white-space:nowrap;
+    text-decoration:none;
+    color:#cccccc;
+    margin-bottom:5px;
+}
+
+* html .cNavLinkNotInProject
+{
+    white-space:normal;
+    height:20px;
+    margin-left:20px;
+}
+
+.cNavRoot
+{
+    margin-bottom:5px;
+}
+
+div.cNavRoot a, div.cNavLink a, div.cNavLinkNotInProject a
+{
+    text-decoration:none;
+    color:#fff;
+    font-size:12px;
+}
+
+div.cNavLinkNotInProject a
+{
+    color:#cccccc;
+}
+
+.cNavActive
+{
+    color:#fff;
+    font-weight:bold;
+}			
+
+.cNavEntry
+{
+    text-decoration:none;
+    color:#fff;
+    padding-left:10px;
+    padding-bottom:2px;
+    padding-top:2px;
+    border-bottom:#aaa 1px  dotted;
+}
+
+.cNavEntryActive
+{
+    text-decoration:none;
+    font-weight:bold;
+    padding-left:10px;
+    color:#fff;
+    padding-bottom:2px;
+    padding-top:2px;
+    border-bottom:#aaa 1px dotted;
+}
+
+div.cNavEntry:hover, div.cNavEntryActive:hover
+{
+    cursor:pointer;
+    background-color:#E4E4E6;
+    background-color:#0072bb;
+}
+
+.lwSearchEntryName
+{
+    color:#fff;
+    cursor:pointer;
+}
+
+#lwPageSearchForm
+{
+    margin-left:5px;
+    margin-bottom:5px;
+}
+
+#lwPageSearchFilter
+{
+    margin-left:5px;
+    margin-bottom:5px;
+}
+
+#lwPageSearchForm input.cFormButton
+{
+    margin-left:5px;
+}
+
+#lwFavouriteAddButton
+{
+    margin-left:5px;
+}
+
+.lwProjectNavItem {
+    color:#F87217;
+}
+
+.lwProjectHalfNavItem {
+    color:#fff100;
+}
+
+.lwDisabledNavItem
+{
+    color:#cc0000;
+}
+
+.lwBoxLeftContent a.cContentLink
+{
+    color:#fff;
+}
+
+.noSearchResult
+{
+    margin-left:10px;
+    color:#cc0000;
+}
+
+/* neu 2008-06-27 kvdh */
+
+div.lwBoxLeftContent label
+{
+    padding-left: 10px;
+    margin-right: 0.3em;
+    margin-top: 0.7em;
+    width:9em;
+    float:left;
+    clear:both;
+    color:white;
+}
+
+div.lwBoxLeftContent select
+{
+    margin-right: 0.3em;
+    margin-top: 0.7em;
+}			
+
+/* ###  linke Navigation
+** ### 
+** ######################################################################################################
+*/
+
+/* ######################################################################################################
+** ### 
+** ###  Containerliste
+*/
+
+#cContainerList
+{
+    margin-left:10px;
+    margin-top:10px;
+    margin-right:10px;
+}
+
+.cContainer
+{
+    position:relative;	
+    margin-bottom:10px;
+}
+
+.cContainerTitle
+{
+    position:relative;
+    border:solid 1px #000;
+    padding:3px;
+    background-color:#bfbfbf;
+    color:black;
+    font-weight:bold;
+    margin-bottom:10px;
+    background-repeat: no-repeat; 
+    background-position:99% 3px;
+}		
+
+.cContainerEntry
+{
+    border:solid 1px #E4E4E6;
+    border:solid 1px #000;
+    padding:3px;
+    background-color:#FFFFFF;
+    background-color:#bbb;
+    margin-bottom:10px;
+    background-repeat: no-repeat; 
+    background-position:99% 3px;
+}
+
+div.cContainerEntry:hover, div.cContainerEntry a:hover, div.cContainerEntry:hover a
+{
+    background-color:#E4E4E6;
+    background-color:#bbb;
+    color:#fff;
+}
+
+.cContainerColoredBar
+{
+    border-left:5px solid;
+    padding-left:3px;
+    padding-right:12px;
+}
+
+#cContainerButtons
+{
+    margin-left:10px;
+}
+
+.lwAdminPageComment
+{
+    margin-top:10px;
+    padding:10px;
+}
+
+.lwAdminPageCommentView
+{
+    width:99%;
+    border:solid 1px #E4E4E6;
+    background-color:#FFFFFF;
+    padding:3px;
+}
+
+.cContentInfobox
+{
+    background-color:#CCFFFF;
+}
+
+.cContainerPageinfo
+{
+    color:black;
+    font-weight:normal;
+    font-size:12px;
+    padding-left:20px;
+}
+
+/* ###  Containerliste
+** ### 
+** ######################################################################################################
+*/
+
+/* ######################################################################################################
+** ### 
+** ###  cbox
+*/
+
+.cboxHeadline
+{
+    margin:10px;
+    font-weight:bold;
+}
+
+.cboxForm
+{
+    margin-left:10px;
+}
+
+.cSavebar
+{
+    margin:10px;
+}
+
+/* ###  cbox
+** ### 
+** ######################################################################################################
+*/
+
+/* ######################################################################################################
+** ### 
+** ###  Overlay Message Box
+*/
+
+#lwOverlay
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 90;
+    width: 100%;
+    height: 500px;
+    background-color: #000;
+    filter:alpha(opacity=60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+    display:none;
+}           
+
+#lwOverlayBox
+{
+    position: absolute;
+    top: 200px;
+    width: 100%;
+    z-index: 100;
+    text-align: center;
+    display:none;
+}
+
+#lwOverlayMessage
+{
+    background-color:#ffffff;
+    color:#000000;
+    width:200px;
+    margin-left:auto;
+    margin-right:auto;
+    display:none;
+}		
+
+/* ###  Overlay Message Box
+** ### 
+** ######################################################################################################
+*/
+
+
+/* ######################################################################################################
+** ### 
+** ###  Checklisten
+*/
+
+.checklist 
+{
+    border: 1px solid #333;
+    list-style: none;
+    height: 10em;
+    overflow: auto;
+    width:20em;
+}
+
+.checklist, .checklist li 
+{ 
+    margin: 0; 
+    padding: 0; 
+}
+
+.checklist label 
+{ 
+    display: block; 
+    padding: 0 0.2em 0 25px; 
+    text-indent: -20px; 
+}
+
+.checklist label:hover, .checklist label.hover 
+{ 
+    background: #7F7F7F; 
+    color: #fff; 
+}
+
+* html .checklist label 
+{ 
+    height: 1%; 
+}
+
+/* ###  Checklisten
+** ### 
+** ######################################################################################################
+*/	
+
+/* ######################################################################################################
+** ### 
+** ###  Page Comment
+*/
+
+.lwPageCommentTable
+{
+    margin:10px;
+    width:97%;
+    border:0px #ddd solid;
+}
+
+.lwPageCommentTable tr.header
+{
+    background-color:#7f7f7f;
+}
+
+.lwPageCommentTable tr.header td
+{
+    border: 1px solid #333;
+    background-color:#bfbfbf;
+    color:#000;
+    font-weight:bold;
+    padding:2px;
+}
+
+.lwPageCommentTable tr.odd
+{
+    background-color:#eee;
+}
+
+.lwPageCommentTable tr.even
+{
+    background-color:#e3e3e3;
+}
+
+.lwPageCommentTable tr.even td,  .lwPageCommentTable tr.odd td
+{
+    padding:2px;
+}
+
+/* ###  Page Comment
+** ### 
+** ######################################################################################################
+*/			
+
+div.cVersionRow
+{
+    margin-bottom:5px;
+}
+
+div.jGrowl { color:#fff; }
+
+.tooltip {
+    display:none;
+    padding:10px;
+    font-size:11px;
+    color:#fff;
+    background-color:#000;
+    border:solid white 1px;
+}

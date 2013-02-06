@@ -1,0 +1,96 @@
+<?php if ($this->showImportFieldset == 1): ?>
+    <fieldset class="lwadminform">
+        <legend class="lwadminform">Import Xml</legend>
+        <form action="<?php echo $this->url ?>" method="post" enctype="multipart/form-data">
+            Datei&nbsp;&nbsp;&nbsp;<input type="file" name="xml" class="file" /><br/><br/>
+            <textarea style="width:100%; height:400px;" name="xml_text"></textarea><br/><br/>
+            <input class="btn" type="submit" value="Import" class="submit">
+            <input type="hidden" name="upload" value="1">
+        </form>
+    </fieldset>
+<?php endif; ?>
+<?php if ($this->showTable == 1): ?>
+    <fieldset class="lwadminform">
+        <legend class="lwadminform">ImportInfo</legend>
+        <div id="status_table">
+            <?php if(isset($this->array["structure"])) : ?>
+            <?php foreach ($this->array["structure"] as $key => $value) : ?>
+            <h3>"<?php echo $key ?>" IMPORT</h3>
+            <h5>Structure Imported</h5>
+            <table class="lwPageCommentTable" style="width:90%">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Attr</th>
+                        <th>Type</th>
+                        <th>Size</th>
+                        <th style="width: 20px;text-align: center;">AI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $oddeven = "even" ?>
+                    <?php foreach($value as $k => $v): ?>
+                    <?php 
+                        if($oddeven == "even") {
+                            $oddeven = "odd";
+                        } else{
+                            $oddeven = "even";
+                        }
+                    ?>
+                        <tr class="<?php echo $oddeven ?>">
+                            <td><?php echo $k ?></td>
+                            <td><?php echo $v["type"] ?></td>
+                            <?php if(isset($v["size"])) : ?>
+                                <td><?php echo $v["size"] ?></td>
+                            <?php endif;?>
+                            <?php if(!isset($v["size"])) : ?>
+                                <td><?php echo "&nbsp;" ?></td>
+                            <?php endif;?>
+                            <?php if(isset($v["ai"])) : ?>
+                                <td style="text-align: center;font-weight: bold;"><?php echo "X" ?></td>
+                            <?php endif;?>
+                            <?php if(!isset($v["ai"])) : ?>
+                                <td style="text-align: center;font-weight: bold;"><?php echo "&nbsp;" ?></td>
+                            <?php endif;?>
+                                
+                        </tr>
+                        <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php endforeach;?>
+            <?php endif;?>
+            
+            <?php if(isset($this->array["data"])) : ?>
+            <?php foreach ($this->array["data"] as $key => $value) : ?>
+            <h3>"<?php echo $key ?>" IMPORT</h3>
+            <h5>Data Imported</h5>
+            <?php foreach($value as $v): ?>
+            <table class="""lwPageCommentTable" style="width:90%">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Attr</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $oddeven = "even" ?>
+                    <?php foreach($v as $attr_name => $attr_value): ?>
+                    <?php 
+                        if($oddeven == "even") {
+                            $oddeven = "odd";
+                        } else{
+                            $oddeven = "even";
+                        }
+                    ?>
+                        <tr class="<?php echo $oddeven ?>">
+                            <td><?php echo $attr_name ?></td>
+                            <td><?php echo str_replace("'", "", $attr_value) ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php endforeach;?>
+            <?php endforeach;?>
+            <?php endif;?>
+        </div>
+    </fieldset>
+<?php endif; ?>
