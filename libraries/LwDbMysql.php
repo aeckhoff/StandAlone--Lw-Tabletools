@@ -116,7 +116,7 @@ class LwDbMysql extends lw_db
         }
         else
         {
-	        $reg = registry::getInstance();
+	        $reg = \registry::getInstance();
 	        $this->config       = $reg->getEntry("config");
         	$this->dbuser       = $this->config['lwdb']['user'];
             $this->pass         = $this->config['lwdb']['pass'];
@@ -146,7 +146,7 @@ class LwDbMysql extends lw_db
         // es wird false zur�ckgegeben
         if (!$this->connect)
         {
-            throw new Exception("[db_mysql] no db connection");
+            throw new \Exception("[db_mysql] no db connection");
         }
         else
         {
@@ -156,7 +156,7 @@ class LwDbMysql extends lw_db
             // es wird false zur�ckgegeben
             if (!$select) 
             {
-                throw new Exception("[db_mysql] database (".$this->db.") not available");
+                throw new \Exception("[db_mysql] database (".$this->db.") not available");
             }
         }
         return true;
@@ -199,17 +199,17 @@ class LwDbMysql extends lw_db
         // check if $sql is empty
         if (empty($sql))
         {
-            throw new Exception("[db_mysql::getR] no sql passed");
+            throw new \Exception("[db_mysql::getR] no sql passed");
         }
         // check if $sql is a select statement
         if (!eregi("^select",$sql) && !eregi("^show",$sql))
         {
-            throw new Exception("[db_mysql::getR] no select statement");
+            throw new \Exception("[db_mysql::getR] no select statement");
         }
         // check if connection is available
         if (!$this->connect) 
         {
-            throw new Exception("[db_mysql::getR] no db connection");
+            throw new \Exception("[db_mysql::getR] no db connection");
         }
         else 
         {
@@ -287,12 +287,12 @@ class LwDbMysql extends lw_db
         // check if $sql is empty
         if (empty($sql))
         {
-        	throw new Exception("[db_mysql] no sql passed");
+        	throw new \Exception("[db_mysql] no sql passed");
         }
         // check if connection is available
         if (!$this->connect) 
         {
-            throw new Exception("[db_mysql] no db connection");
+            throw new \Exception("[db_mysql] no db connection");
         }
         else 
         {
@@ -375,11 +375,11 @@ class LwDbMysql extends lw_db
     	//echo "<!-- ".$sql." -->\n\n";
     	if (empty($sql))
         {
-            throw new Exception("[db_mysql::dbquery] no sql passed");
+            throw new \Exception("[db_mysql::dbquery] no sql passed");
         }
         if (!$this->connect) 
         {
-            throw new Exception("[db_mysql::dbquery] no db connection");
+            throw new \Exception("[db_mysql::dbquery] no db connection");
         }
         else 
         {
@@ -387,7 +387,7 @@ class LwDbMysql extends lw_db
         }
         if (!$results) 
         {
-            throw new Exception("[db_mysql::dbquery] ".mysql_errno()." - ".mysql_error());
+            throw new \Exception("[db_mysql::dbquery] ".mysql_errno()." - ".mysql_error());
         }
         return $results;
     }

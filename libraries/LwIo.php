@@ -37,7 +37,7 @@ class LwIo {
 	{}
 	
 	public function mkdir_recursive($pathname, $mode) {
-	    is_dir(dirname($pathname)) || lw_io::mkdir_recursive(dirname($pathname), $mode);
+	    is_dir(dirname($pathname)) || \lw_io::mkdir_recursive(dirname($pathname), $mode);
 	    return is_dir($pathname) || @mkdir($pathname, $mode);
 	}	
 	
@@ -72,11 +72,11 @@ class LwIo {
     */
 	public function loadFile($file) {
         if (!file_exists($file)) {
-            throw new Exception("[lw_object::loadFile] Das File (".$file.") existiert nicht !");
+            throw new \Exception("[lw_object::loadFile] Das File (".$file.") existiert nicht !");
         }
         $fileopen = @fopen($file,"r");
     	if (!$fileopen) {
-            throw new Exception("[lw_object::loadFile] Das File (".$file.") konnte nicht geöffnet werden !");
+            throw new \Exception("[lw_object::loadFile] Das File (".$file.") konnte nicht geöffnet werden !");
     	}
     	$file_data = @fread($fileopen, filesize($file));
     	@fclose($fileopen);
@@ -103,7 +103,7 @@ class LwIo {
     public function writeFile($file, $data) {
         $fileopen   =   @fopen($file,"w+");
     	if (!$fileopen) {
-            throw new Exception("[lw_object::writeFile] Das File konnte nicht geöffnet werden !");
+            throw new \Exception("[lw_object::writeFile] Das File konnte nicht geöffnet werden !");
     	}
         $ok = fwrite($fileopen, $data);
         fclose($fileopen);
@@ -120,7 +120,7 @@ class LwIo {
     public function appendFile($file, $data) {
         $fileopen   =   @fopen($file,"a+");
     	if (!$fileopen) {
-            throw new Exception("[lw_object::appendFile] Das File konnte nicht geöffnet werden !");
+            throw new \Exception("[lw_object::appendFile] Das File konnte nicht geöffnet werden !");
     	}
         $ok = fwrite($fileopen, $data);
         fclose($fileopen);
@@ -156,9 +156,9 @@ class LwIo {
 		str_replace(".","_",$string);
 		str_replace("/","_",$string);
 			
-		$dir = lw_io::getPathByRemovingLastPathComponent($filepath);
-		$ext = lw_io::getFileExtension($filepath);
-		$name = lw_io::getFileNameWithoutExternsion($filepath);
+		$dir = \lw_io::getPathByRemovingLastPathComponent($filepath);
+		$ext = \lw_io::getFileExtension($filepath);
+		$name = \lw_io::getFileNameWithoutExternsion($filepath);
 		
 		if (strlen($name.$string.".".$ext) > 254) {
 			$string = "";
@@ -172,10 +172,10 @@ class LwIo {
 	public function getFreeFilepath($filepath) {
 		if (!is_file($filepath)) return $filepath;
 		
-		$dir = lw_io::getPathByRemovingLastPathComponent($filepath);
+		$dir = \lw_io::getPathByRemovingLastPathComponent($filepath);
 		$dir.="/";
-		$ext = lw_io::getFileExtension($filepath);
-		$name = lw_io::getFileNameWithoutExternsion($filepath);
+		$ext = \lw_io::getFileExtension($filepath);
+		$name = \lw_io::getFileNameWithoutExternsion($filepath);
 		
 		//echo "DIR:".$dir."<br>";
 		//echo "EXT:".$ext."<br>";
@@ -201,7 +201,7 @@ class LwIo {
 	}	
 	
 	function splitFilename($filename) {
-		$file['suffix'] 	= lw_io::getFileExtension($filename);
+		$file['suffix'] 	= \lw_io::getFileExtension($filename);
 		$file['name'] 		= str_replace('.'.$suffix, '', $filename);
 		$file['filename'] 	= $file['name'].'.'.$file['suffix'];
 		return $file;

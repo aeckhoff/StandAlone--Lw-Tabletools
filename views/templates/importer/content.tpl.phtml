@@ -14,7 +14,8 @@
         <legend class="lwadminform">ImportInfo</legend>
         <div id="status_table">
             <?php if(isset($this->array["structure"])) : ?>
-            <?php foreach ($this->array["structure"] as $key => $value) : ?>
+            <?php foreach ($this->array["structure"] as $table) : ?>
+            <?php foreach($table as $key => $value): ?>
             <h3>"<?php echo $key ?>" IMPORT</h3>
             <h5>Structure Imported</h5>
             <table class="lwPageCommentTable" style="width:90%">
@@ -57,38 +58,12 @@
                 </tbody>
             </table>
             <?php endforeach;?>
+            <?php endforeach;?>
             <?php endif;?>
             
             <?php if(isset($this->array["data"])) : ?>
-            <?php foreach ($this->array["data"] as $key => $value) : ?>
-            <h3>"<?php echo $key ?>" IMPORT</h3>
-            <h5>Data Imported</h5>
-            <?php foreach($value as $v): ?>
-            <table class="""lwPageCommentTable" style="width:90%">
-                <thead>
-                    <tr>
-                        <th style="width: 20%;">Attr</th>
-                        <th>Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $oddeven = "even" ?>
-                    <?php foreach($v as $attr_name => $attr_value): ?>
-                    <?php 
-                        if($oddeven == "even") {
-                            $oddeven = "odd";
-                        } else{
-                            $oddeven = "even";
-                        }
-                    ?>
-                        <tr class="<?php echo $oddeven ?>">
-                            <td><?php echo $attr_name ?></td>
-                            <td><?php echo str_replace("'", "", $attr_value) ?></td>
-                        </tr>
-                        <?php endforeach; ?>
-                </tbody>
-            </table>
-            <?php endforeach;?>
+            <?php foreach ($this->array["data"] as $table => $count) : ?>
+            <h3>"<?php echo $table ?>" <span style="font-size: 12px"> =&gt; </span><?php echo "".$count."&nbsp;" ?><span style="font-size: 12px">Datasets Imported</span></h3>
             <?php endforeach;?>
             <?php endif;?>
         </div>

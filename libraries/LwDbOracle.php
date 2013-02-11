@@ -36,7 +36,7 @@ putenv('NLS_COMP=ANSI');
     {
         $this->dbuser   = $user;
         $this->pass     = $pass;
-	    $reg  			= lw_registry::getInstance();
+	    $reg  			= \lw_registry::getInstance();
         $this->firephp	= $reg->getEntry("firephp");
 		if ($this->firephp) $this->firephp->log(1, 'lw_db_oracle instanziert');
         if ($db)
@@ -78,7 +78,7 @@ putenv('NLS_COMP=ANSI');
     {
         if ($this->firephp) 
         {
-            $timer = lw_timer::getInstance('connect');
+            $timer = \lw_timer::getInstance('connect');
             $timer->start();
         }
     	
@@ -141,7 +141,7 @@ putenv('NLS_COMP=ANSI');
             if ($this->firephp) 
             {
             	$this->counter['getR']++;
-            	$timer = lw_timer::getInstance('getR'.$this->counter['getR']);
+            	$timer = \lw_timer::getInstance('getR'.$this->counter['getR']);
             	$timer->start();
             }
         	if ($this->dbdbg) echo "\n\n<!-- ".$sql." :  ";
@@ -265,7 +265,7 @@ putenv('NLS_COMP=ANSI');
             if ($this->firephp) 
             {
             	$this->counter['dbquery']++;
-            	$timer = lw_timer::getInstance('dbquery'.$this->counter['dbquery']);
+            	$timer = \lw_timer::getInstance('dbquery'.$this->counter['dbquery']);
             	$timer->start();
             }
         	if ($this->dbdbg) echo "\n\n<!-- ".$sql." :-: ";
@@ -307,7 +307,7 @@ putenv('NLS_COMP=ANSI');
             if ($this->firephp) 
             {
             	$this->counter['dbinsert']++;
-            	$timer = lw_timer::getInstance('dbinsert'.$this->counter['dbinsert']);
+            	$timer = \lw_timer::getInstance('dbinsert'.$this->counter['dbinsert']);
             	$timer->start();
             }
         	$stmt       = oci_parse($this->connect,$sql." returning ROWID into :rid");
@@ -348,7 +348,7 @@ putenv('NLS_COMP=ANSI');
         if ($this->firephp) 
         {
             $this->counter['saveClob']++;
-            $timer = lw_timer::getInstance('saveClob'.$this->counter['saveClob']);
+            $timer = \lw_timer::getInstance('saveClob'.$this->counter['saveClob']);
             $timer->start();
         }
     	if (!$data) $data = " ";
@@ -402,12 +402,12 @@ putenv('NLS_COMP=ANSI');
         // check if $sql is empty
         if (empty($sql))
         {
-        	throw new Exception("[db_mysql] no sql passed");
+        	throw new \Exception("[db_mysql] no sql passed");
         }
         // check if connection is available
         if (!$this->connect) 
         {
-            throw new Exception("[db_mysql] no db connection");
+            throw new \Exception("[db_mysql] no db connection");
         }
         else 
         {

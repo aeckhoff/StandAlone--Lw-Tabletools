@@ -44,7 +44,7 @@ class LwView {
 	}
 	
 	public function getItemImagePreview($item, $function, $width, $height) {
-		return lw_item::getInstance($item['id'])->getResizedImage($function, $width, $height);
+		return \lw_item::getInstance($item['id'])->getResizedImage($function, $width, $height);
 	}
 	
 	public function isItemImage($item) {

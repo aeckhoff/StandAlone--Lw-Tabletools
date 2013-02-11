@@ -24,14 +24,14 @@ class LwDb  {
     private static $instance = null;
 
     public static function getInstance() {
-        $reg = lw_registry::getInstance();
+        $reg = \lw_registry::getInstance();
         $config = $reg->getEntry("config");
         $key = base64_encode($config['lwdb']['user'] . $config['lwdb']['pass'] . $config['lwdb']['host'] . $config['lwdb']['name']);
         if (self::$instance[$key] == null) {
             $dbobj = "lw_db_" . $config['lwdb']['type'];
             self::$instance[$key] = new $dbobj($config['lwdb']['user'], $config['lwdb']['pass'], $config['lwdb']['host'], $config['lwdb']['name']);
             if (!self::$instance[$key]) {
-                throw new Exception("[lwdb:getInstance] DB-Type not supportet!");
+                throw new \Exception("[lwdb:getInstance] DB-Type not supportet!");
             }
             self::$instance[$key]->connect();
         }

@@ -129,7 +129,7 @@ class LwDbMysqli extends \lwTabletools\libraries\LwDb
     {
     	if ($this->firephp) 
         {
-            $timer = lw_timer::getInstance('connect');
+            $timer = \lw_timer::getInstance('connect');
             $timer->start();
         }
     	$this->db = @mysqli_connect($this->host, $this->dbuser, $this->pass, $this->db);
@@ -183,24 +183,24 @@ class LwDbMysqli extends \lwTabletools\libraries\LwDb
         // check if $sql is empty
         if (empty($sql))
         {
-            throw new Exception("[db_mysql::getR] no sql passed");
+            throw new \Exception("[db_mysql::getR] no sql passed");
         }
         // check if $sql is a select statement
         if (!eregi("^select",$sql) && !eregi("^show",$sql))
         {
-            throw new Exception("[db_mysql::getR] no select statement");
+            throw new \Exception("[db_mysql::getR] no select statement");
         }
         // check if connection is available
         if (!$this->db) 
         {
-            throw new Exception("[db_mysql::getR] no db connection");
+            throw new \Exception("[db_mysql::getR] no db connection");
         }
         else 
         {
             if ($this->firephp) 
             {
             	$this->counter['getR']++;
-            	$timer = lw_timer::getInstance('getR'.$this->counter['getR']);
+            	$timer = \lw_timer::getInstance('getR'.$this->counter['getR']);
             	$timer->start();
             }
         	//echo "\n\n<!-- ".$sql." -->\n\n";
@@ -288,12 +288,12 @@ class LwDbMysqli extends \lwTabletools\libraries\LwDb
         // check if $sql is empty
         if (empty($sql))
         {
-        	throw new Exception("[db_mysql] no sql passed");
+        	throw new \Exception("[db_mysql] no sql passed");
         }
         // check if connection is available
         if (!$this->db) 
         {
-            throw new Exception("[db_mysql] no db connection");
+            throw new \Exception("[db_mysql] no db connection");
         }
         else 
         {
@@ -366,7 +366,7 @@ class LwDbMysqli extends \lwTabletools\libraries\LwDb
 
     public function logSQL($sql) {
 		if (!strstr($sql, "lw_usage") && !strstr($sql, "lw_slog"))  {
-	    	$reg = lw_registry::getInstance();
+	    	$reg = \lw_registry::getInstance();
 			$this->config = $reg->getEntry("config");    	
 			if ($this->config['logging']['dblogfile'] && is_writable($this->config['logging']['dblogfile'])) {
 		    	$obj = debug_backtrace();
@@ -374,7 +374,7 @@ class LwDbMysqli extends \lwTabletools\libraries\LwDb
 		        	$output.= "(".$entry['class'].":".$entry['function'].":".$entry['line'].")>";
 		        }
 	        	$out   = date("YmdHis").":::".$sql.":::".$output."start"."\n";
-				lw_io::appendFile($this->config['logging']['dblogfile'].date("Ymd")."_ddl.log", $out);
+				\lw_io::appendFile($this->config['logging']['dblogfile'].date("Ymd")."_ddl.log", $out);
 	        	chmod($this->config['logging']['dblogfile'].date("Ymd")."_ddl.log", 0770);
 	        }
 		}
@@ -389,15 +389,15 @@ class LwDbMysqli extends \lwTabletools\libraries\LwDb
     */
     public function dbquery($sql) {
     	if (empty($sql)) {
-            throw new Exception("[db_mysql::dbquery] no sql passed");
+            throw new \Exception("[db_mysql::dbquery] no sql passed");
         }
         if (!$this->db) {
-            throw new Exception("[db_mysql::dbquery] no db connection");
+            throw new \Exception("[db_mysql::dbquery] no db connection");
         }
         else {
             if ($this->firephp) {
             	$this->counter['dbquery']++;
-            	$timer = lw_timer::getInstance('dbquery'.$this->counter['dbquery']);
+            	$timer = \lw_timer::getInstance('dbquery'.$this->counter['dbquery']);
             	$timer->start();
             }
         	$result = $this->db->query($sql);
@@ -408,7 +408,7 @@ class LwDbMysqli extends \lwTabletools\libraries\LwDb
 	        }        	
         }
         if (!$result) {
-            throw new Exception("[db_mysql::dbquery] ".$this->db->error);
+            throw new \Exception("[db_mysql::dbquery] ".$this->db->error);
         }
         return $result;
     }
@@ -449,7 +449,7 @@ class LwDbMysqli extends \lwTabletools\libraries\LwDb
         if ($this->firephp) 
         {
             $this->counter['saveClob']++;
-            $timer = lw_timer::getInstance('saveClob'.$this->counter['saveClob']);
+            $timer = \lw_timer::getInstance('saveClob'.$this->counter['saveClob']);
             $timer->start();
         }
     	$ok = $this->dbquery($sql);

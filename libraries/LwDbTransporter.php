@@ -161,7 +161,7 @@ class LwDbTransporter
         if (substr($xml, 0, strlen('<migration>')) == '<migration>') {
             $ctNodes = $dom->find('/migration/up/createTable');
             foreach ($ctNodes as $ctNode) {
-                $array["structure"] = $this->transport->createTable($ctNode);
+                $array["structure"][] = $this->transport->createTable($ctNode);
             }
             #print_r($array);die();
             #die("imported!<br/><a href='index.php'>go back</a>");
@@ -169,7 +169,7 @@ class LwDbTransporter
         elseif (substr($xml, 0, strlen('<dbdata>')) == '<dbdata>') {
             $array["data"] = $this->importData($dom);
         }
-
+        #print_r($array);die();
         return $array;
         #die("ung&uuml;ltiges XML!<br/><a href='index.php'>go back</a>");
     }
@@ -233,11 +233,12 @@ class LwDbTransporter
                 $arr_fields = explode(",", $field_names);
                 $arr_values = explode(",", $values);
                 #print_r(array($arr_fields,$arr_values));die(count($arr_fields)."");
-                $temp_arr = array();
-                for($i = 0; $i <= count($arr_values) - 1 ; $i++){
-                    $temp_arr[trim(@$arr_fields[$i])] = @$arr_values[$i];
-                }
-                $array[$table->attr("name")][] = $temp_arr;
+//                $temp_arr = array();
+//                for($i = 0; $i <= count($arr_values) - 1 ; $i++){
+//                    $temp_arr[trim(@$arr_fields[$i])] = @$arr_values[$i];
+//                }
+                #print_r($temp_arr);die()
+                $array[$table->attr("name")][] = 1;
                 
                 unset($sql);
                 unset($field_names);
@@ -252,7 +253,12 @@ class LwDbTransporter
                 $this->transport->setAutoincrement($table->attr('name'), ($table->attr('aivalue') + 1));
             }
         }
-        return $array;
+        #print_r($array);die();
+        $returnarray = array();
+        foreach($array as $key => $value) {
+            $returnarray[$key] = count($value);
+        }
+        return $returnarray;
         #die("imported!<br/><a href='index.php'>go back</a>");
     }
 
