@@ -161,6 +161,8 @@ class LwDbTransportMysql implements \lwTabletools\libraries\LwVendorDBTransport
         $foot.= ")\n";
         if ($this->debug != 1) {
             $this->db->dbquery($head . $main . $foot);
+        } else {
+            $this->preparedArray[$this->tablename]["sql"] = $head . $main . $foot;
         }
         
         return $this->preparedArray;
@@ -174,8 +176,10 @@ class LwDbTransportMysql implements \lwTabletools\libraries\LwVendorDBTransport
             case "number":
                 if ($field->attr('size') > 11) {
                     $out.=" bigint(" . $field->attr('size') . ") ";
-                    $this->preparedArray[$this->tablename][$field->attr('name')]["type"] = "bigint";
-                    $this->preparedArray[$this->tablename][$field->attr('name')]["size"] = $field->attr('size');
+                    if($this->debug != 1) {
+                        $this->preparedArray[$this->tablename][$field->attr('name')]["type"] = "bigint";
+                        $this->preparedArray[$this->tablename][$field->attr('name')]["size"] = $field->attr('size');
+                    }
                 }
                 else {
                     $out.= " int(" . $field->attr('size') . ") ";
@@ -187,26 +191,34 @@ class LwDbTransportMysql implements \lwTabletools\libraries\LwVendorDBTransport
             case "text":
                 if ($field->attr('size') > 255) {
                     $out.= " text ";
-                    $this->preparedArray[$this->tablename][$field->attr('name')]["type"] = "text";
-                    $this->preparedArray[$this->tablename][$field->attr('name')]["size"] = "";
+                    if($this->debug != 1) {
+                        $this->preparedArray[$this->tablename][$field->attr('name')]["type"] = "text";
+                        $this->preparedArray[$this->tablename][$field->attr('name')]["size"] = "";
+                    }
                 }
                 else {
                     $out.= " varchar(" . $field->attr('size') . ") ";
-                    $this->preparedArray[$this->tablename][$field->attr('name')]["type"] = "varchar";
-                    $this->preparedArray[$this->tablename][$field->attr('name')]["size"] = $field->attr('size');
+                    if($this->debug != 1) {
+                        $this->preparedArray[$this->tablename][$field->attr('name')]["type"] = "varchar";
+                        $this->preparedArray[$this->tablename][$field->attr('name')]["size"] = $field->attr('size');
+                    }
                 }
                 break;
 
             case "clob":
                 $out.= " longtext ";
-                $this->preparedArray[$this->tablename][$field->attr('name')]["type"] = "longtext";
-                $this->preparedArray[$this->tablename][$field->attr('name')]["size"] = "";
+                if($this->debug != 1) {
+                    $this->preparedArray[$this->tablename][$field->attr('name')]["type"] = "longtext";
+                    $this->preparedArray[$this->tablename][$field->attr('name')]["size"] = "";
+                }
                 break;
 
             case "bool":
                 $out.= " int(1) ";
-                $this->preparedArray[$this->tablename][$field->attr('name')]["type"] = "int";
-                $this->preparedArray[$this->tablename][$field->attr('name')]["size"] = "1";
+                if($this->debug != 1) {
+                    $this->preparedArray[$this->tablename][$field->attr('name')]["type"] = "int";
+                    $this->preparedArray[$this->tablename][$field->attr('name')]["size"] = "1";
+                }
                 break;
 
             default:
@@ -214,7 +226,9 @@ class LwDbTransportMysql implements \lwTabletools\libraries\LwVendorDBTransport
         }
         if ($field->attr('special') == 'auto_increment') {
             $out.=' auto_increment ';
-            $this->preparedArray[$this->tablename][$field->attr('name')]["ai"] = "auto_increment";
+            if($this->debug != 1) {
+                $this->preparedArray[$this->tablename][$field->attr('name')]["ai"] = "auto_increment";
+            }
         }
         return $out . ",\n";
     }

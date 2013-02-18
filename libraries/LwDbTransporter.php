@@ -22,10 +22,10 @@ namespace lwTabletools\libraries;
 class LwDbTransporter
 {
 
-    function __construct($db)
+    function __construct($db, $debug = false)
     {
         $this->db = $db;
-        $this->debug = false;
+        $this->debug = $debug;
         $this->setVendorDBTransport($this->db->getDBType());
     }
 
@@ -221,15 +221,15 @@ class LwDbTransporter
                 }
 
                 $sql = "INSERT INTO "  . $table->attr('name') . " (" . $field_names . ") VALUES (" . $values . ")";
-                if (!$this->debug)
+                if (!$this->debug) {
                      $this->db->dbquery($sql);
                 #echo $ok . ": " . $sql . "<br>";
 
-                foreach ($clobs as $field => $data) {
-                    if (!$this->debug)
-                        $this->db->saveClob($this->prefix . $table->attr('name'), $field, $data, $id);
+                    foreach ($clobs as $field => $data) {
+                        if (!$this->debug)
+                            $this->db->saveClob($this->prefix . $table->attr('name'), $field, $data, $id);
+                    }
                 }
-
                 $arr_fields = explode(",", $field_names);
                 $arr_values = explode(",", $values);
                 #print_r(array($arr_fields,$arr_values));die(count($arr_fields)."");
@@ -238,7 +238,7 @@ class LwDbTransporter
 //                    $temp_arr[trim(@$arr_fields[$i])] = @$arr_values[$i];
 //                }
                 #print_r($temp_arr);die()
-                $array[$table->attr("name")][] = 1;
+                $array[$table->attr("name")][] = $sql;
                 
                 unset($sql);
                 unset($field_names);
@@ -253,12 +253,16 @@ class LwDbTransporter
                 $this->transport->setAutoincrement($table->attr('name'), ($table->attr('aivalue') + 1));
             }
         }
-        #print_r($array);die();
-        $returnarray = array();
-        foreach($array as $key => $value) {
-            $returnarray[$key] = count($value);
+        
+        if(!$this->debug) {
+            $returnarray = array();
+            foreach($array as $key => $value) {
+                $returnarray[$key] = count($value);
+            }
+            return $returnarray;
+        } else {
+            return $array;
         }
-        return $returnarray;
         #die("imported!<br/><a href='index.php'>go back</a>");
     }
 

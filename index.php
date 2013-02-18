@@ -77,6 +77,12 @@ if(isset($_SESSION["lw_tabletools"]["connected"])) {
                     case "importer":
                         $cmd = "";
                         $importer = new lwTabletools\controller\LwImporter($request,$response,$event,$db);
+
+                        if($request->getInt("debug") && $request->getInt("debug") == 1) {
+                            $importer->setDebug(true);
+                        } else {
+                            $importer->setDebug(false);
+                        } 
                         
                         if($request->getInt("import") == 1) {
                             $cmd = "import";

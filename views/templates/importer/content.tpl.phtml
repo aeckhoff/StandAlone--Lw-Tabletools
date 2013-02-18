@@ -4,6 +4,7 @@
         <form action="<?php echo $this->url ?>" method="post" enctype="multipart/form-data">
             Datei&nbsp;&nbsp;&nbsp;<input type="file" name="xml" class="file" /><br/><br/>
             <textarea style="width:100%; height:400px;" name="xml_text"></textarea><br/><br/>
+            <span style="line-height:23px;">Debug </span><input type="checkbox" name="debug" value="1" checked="checked"><br/><br/>
             <input class="btn" type="submit" value="Import" class="submit">
             <input type="hidden" name="upload" value="1">
         </form>
@@ -11,61 +12,89 @@
 <?php endif; ?>
 <?php if ($this->showTable == 1): ?>
     <fieldset class="lwadminform">
+        <?php if ($this->debug): ?>  
+                <input type="button" value="Back" onclick="self.location.href='<?php echo $this->url_base ?>'">              
+                <input type="button" value="Run Statements" onclick="self.location.href='<?php echo $this->url . "&debug=0" ?>'">  
+            <?php else: ?>
+                <input type="button" value="Back" onclick="self.location.href='<?php echo $this->url_base ?>'">          
+            <?php endif; ?>
+                <br/><br/>
         <legend class="lwadminform">ImportInfo</legend>
         <div id="status_table">
-            <?php if(isset($this->array["structure"])) : ?>
-            <?php foreach ($this->array["structure"] as $table) : ?>
-            <?php foreach($table as $key => $value): ?>
-            <h3>"<?php echo $key ?>" IMPORT</h3>
-            <h5>Structure Imported</h5>
-            <table class="lwPageCommentTable" style="width:90%">
-                <thead>
-                    <tr>
-                        <th style="width: 20%;">Attr</th>
-                        <th>Type</th>
-                        <th>Size</th>
-                        <th style="width: 20px;text-align: center;">AI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $oddeven = "even" ?>
-                    <?php foreach($value as $k => $v): ?>
-                    <?php 
-                        if($oddeven == "even") {
-                            $oddeven = "odd";
-                        } else{
-                            $oddeven = "even";
-                        }
-                    ?>
-                        <tr class="<?php echo $oddeven ?>">
-                            <td><?php echo $k ?></td>
-                            <td><?php echo $v["type"] ?></td>
-                            <?php if(isset($v["size"])) : ?>
-                                <td><?php echo $v["size"] ?></td>
-                            <?php endif;?>
-                            <?php if(!isset($v["size"])) : ?>
-                                <td><?php echo "&nbsp;" ?></td>
-                            <?php endif;?>
-                            <?php if(isset($v["ai"])) : ?>
-                                <td style="text-align: center;font-weight: bold;"><?php echo "X" ?></td>
-                            <?php endif;?>
-                            <?php if(!isset($v["ai"])) : ?>
-                                <td style="text-align: center;font-weight: bold;"><?php echo "&nbsp;" ?></td>
-                            <?php endif;?>
-                                
-                        </tr>
-                        <?php endforeach; ?>
-                </tbody>
-            </table>
-            <?php endforeach;?>
-            <?php endforeach;?>
-            <?php endif;?>
-            
-            <?php if(isset($this->array["data"])) : ?>
-            <?php foreach ($this->array["data"] as $table => $count) : ?>
-            <h3>"<?php echo $table ?>" <span style="font-size: 12px"> =&gt; </span><?php echo "".$count."&nbsp;" ?><span style="font-size: 12px">Datasets Imported</span></h3>
-            <?php endforeach;?>
-            <?php endif;?>
+            <?php if (isset($this->array["structure"])) : ?>
+                <?php foreach ($this->array["structure"] as $table) : ?>
+                    <?php foreach ($table as $key => $value): ?>
+                        <?php if (!$this->debug): ?>
+                            <h3>"<?php echo $key ?>" IMPORT</h3>
+                            <h5>Structure Imported</h5>
+                            <table class="lwPageCommentTable" style="width:90%">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%;">Attr</th>
+                                        <th>Type</th>
+                                        <th>Size</th>
+                                        <th style="width: 20px;text-align: center;">AI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $oddeven = "even" ?>
+                                    <?php foreach ($value as $k => $v): ?>
+                                        <?php
+                                        if ($oddeven == "even") {
+                                            $oddeven = "odd";
+                                        } else {
+                                            $oddeven = "even";
+                                        }
+                                        ?>
+                                        <tr class="<?php echo $oddeven ?>">
+                                            <td><?php echo $k ?></td>
+                                            <td><?php echo $v["type"] ?></td>
+                                            <?php if (isset($v["size"])) : ?>
+                                                <td><?php echo $v["size"] ?></td>
+                                            <?php endif; ?>
+                                            <?php if (!isset($v["size"])) : ?>
+                                                <td><?php echo "&nbsp;" ?></td>
+                                            <?php endif; ?>
+                                            <?php if (isset($v["ai"])) : ?>
+                                                <td style="text-align: center;font-weight: bold;"><?php echo "X" ?></td>
+                                            <?php endif; ?>
+                                            <?php if (!isset($v["ai"])) : ?>
+                                                <td style="text-align: center;font-weight: bold;"><?php echo "&nbsp;" ?></td>
+                                            <?php endif; ?>
+
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <h3><?php echo $key ?></h3>
+                            <pre><?php echo $value["sql"] ?></pre><br/>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+
+            <?php if (isset($this->array["data"])) : ?>
+                <?php if (!$this->debug): ?>
+                    <?php foreach ($this->array["data"] as $table => $count) : ?>
+                        <h3>"<?php echo $table ?>" <span style="font-size: 12px"> =&gt; </span><?php echo "" . $count . "&nbsp;" ?><span style="font-size: 12px">Datasets Imported</span></h3>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <?php foreach ($this->array["data"] as $table => $sqls) : ?>
+                    <h3>"<?php echo $table ?>"</h3>
+                    <?php foreach($sqls as $sql): ?>
+                    <pre><?php echo htmlentities($sql) ?></pre>
+                    <?php endforeach;?>
+                    <?php endforeach; ?>
+                    <br/><br/>
+                <?php endif; ?>
+            <?php endif; ?>
         </div>
+            <?php if ($this->debug): ?>  
+                <input type="button" value="Back" onclick="self.location.href='<?php echo $this->url_base ?>'">              
+                <input type="button" value="Run Statements" onclick="self.location.href='<?php echo $this->url . "&debug=0" ?>'">  
+            <?php else: ?>
+                <input type="button" value="Back" onclick="self.location.href='<?php echo $this->url_base ?>'">          
+            <?php endif; ?>
     </fieldset>
 <?php endif; ?>

@@ -36,6 +36,11 @@ class LwImporter
         $this->request = $request;
     }
 
+    public function setDebug($debug) 
+    {
+        $this->debug = $debug;
+    }
+    
     /**
      * Collect the data for certain case, that the correct output can be build.
      * @param string $cmd
@@ -74,7 +79,8 @@ class LwImporter
         $this->event->setDataByKey("content", array(
                "array"               => $this->import(),
                "showImportFieldset"  => 0,
-               "showTable"           => 1
+               "showTable"           => 1,
+               "debug"               => $this->debug
                ) );
     }
 
@@ -95,7 +101,7 @@ class LwImporter
      */
     public function import()
     {
-        $transporter = new \lwTabletools\libraries\LwDbTransporter($this->db);
+        $transporter = new \lwTabletools\libraries\LwDbTransporter($this->db, $this->debug);
         return $transporter->importXML(trim($this->xmlObject->getXml()));
     }
 }
