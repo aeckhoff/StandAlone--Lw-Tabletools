@@ -18,8 +18,10 @@
  *  
  * ************************************************************************* */
 
+
+
 if (strnatcmp(phpversion(), '5.3.0') >= 0) {
-    error_reporting(E_ALL & ~E_DEPRECATED);
+    error_reporting(E_ALL & ~E_NOTICES & ~E_WARNING & ~E_DEPRECATED);
 } else {
     error_reporting(E_ALL);
 }
@@ -35,7 +37,7 @@ $request = new lwTabletools\libraries\LwRequest();
 $dbConnObject = new lwTabletools\model\LwDBConnectionObject();
 
 if($request->getInt("sent") == 1) {
-    if($request->getAlnum("db_type") != "" && $request->getRaw("user") != "" && $request->getRaw("host") != "" && $request->getRaw("db") != "") {
+    if($request->getAlnum("db_type") != "" && $request->getRaw("user") != "" && $request->getRaw("db") != "") {
         $dbConnObject->setDbType($request->getAlnum("db_type"));
         $dbConnObject->setDbUser($request->getRaw("user"));
         $dbConnObject->setDbPass($request->getRaw("pass"));
@@ -45,11 +47,10 @@ if($request->getInt("sent") == 1) {
     }
 }
 
-
 if($request->getInt("disconnect") == 1) {
     session_destroy();
     $_SESSION["lw_tabletools"] = array();
-    header( 'Location: '.'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']."?obj=".$request->getAlnum("obj")."&module=".$request->getAlnum("module") ) ;
+    header( 'Location: '.'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']."?obj=".$request->getAlnum("obj")."&module=".$request->getAlnum("module") ) ;
 }
 
 if(isset($_SESSION["lw_tabletools"]["connected"])) {
@@ -120,11 +121,11 @@ $connectForm = new \lwTabletools\views\LwViewConnectForm($request);
 $view = new \lwTabletools\libraries\LwView( dirname(__FILE__).'/views/templates/main.tpl.phtml' );
 $view->leftContent = $connectForm->render();
 $view->content = $output;
-$view->url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+$view->url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 $view->modules = array("Importer","Exporter","Updater");
 $view->obj = "tabletools";
 $view->module = $request->getAlnum("module");
-$view->url_css = str_replace("index.php", "css/main.css", 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
-$view->url_module_css = str_replace("index.php", "css/exporter.css", 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
+$view->url_css = str_replace("index.php", "css/main.css", 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
+$view->url_module_css = str_replace("index.php", "css/exporter.css", 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
 
 die($view->render());

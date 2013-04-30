@@ -28,7 +28,7 @@ class LwViewConnectForm
     {
         $this->request = $request;
         $this->dbConnObject = new \lwTabletools\model\LwDBConnectionObject();
-        $this->url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']."?obj=".$this->request->getAlnum("obj")."&module=".$this->request->getAlnum("module");
+        $this->url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']."?obj=".$this->request->getAlnum("obj")."&module=".$this->request->getAlnum("module");
     }
 
     public function render()

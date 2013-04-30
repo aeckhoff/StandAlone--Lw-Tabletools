@@ -30,24 +30,18 @@ putenv('NLS_COMP=ANSI');
  * @version  3.0 (beta)
  * @since    PHP 5.0
  */
- class LwDbOracle extends lw_db
+ class LwDbOracle extends \lwTabletools\libraries\LwDb
 {
-    public function lw_db_oracle($user, $pass, $host, $db)
+    protected $dbuser;
+    protected $pass;
+    protected $db;
+    protected $host;
+
+    public function __construct($user=false, $pass=false, $host=false, $db=false)
     {
-        $this->dbuser   = $user;
-        $this->pass     = $pass;
-	    $reg  			= \lw_registry::getInstance();
-        $this->firephp	= $reg->getEntry("firephp");
-		if ($this->firephp) $this->firephp->log(1, 'lw_db_oracle instanziert');
-        if ($db)
-		{
-			$this->db = $db;
-		}
-		else
-		{
-	        $this->config       = $reg->getEntry("config");
-			$this->db = trim($this->loadFile($this->config['custom']['sidfile']));
-		}
+        $this->dbuser       = $user;
+        $this->pass         = $pass;
+    	$this->db           = $db;
         $this->host         = $host;
         $this->transaction  = 0;
         $this->dbg          = 0;
@@ -76,12 +70,6 @@ putenv('NLS_COMP=ANSI');
     
     public function connect($flag="")
     {
-        if ($this->firephp) 
-        {
-            $timer = \lw_timer::getInstance('connect');
-            $timer->start();
-        }
-    	
     	if ($this->host)
         {
             $this->connect = oci_connect($this->dbuser,$this->pass,'//'.$this->host.'/'.$this->db);
@@ -91,18 +79,10 @@ putenv('NLS_COMP=ANSI');
             $this->connect = oci_connect($this->dbuser,$this->pass,$this->db);
         }
         
-        if ($this->debug) echo "connection: ".$this->connect."<br>";
-        
         if (!$this->connect || OCIError())
         {
 			die("connection error");
         }
-        
-        if ($this->firephp) 
-        {
-          	$timer->stop();
-          	$this->firephp->log('connect', 'lw_db_oracle connect aufgerufen ('.$timer->getAlloverTime().'sec)');
-        }          
         return true;
     }
     
@@ -138,15 +118,7 @@ putenv('NLS_COMP=ANSI');
         }
         else 
         {
-            if ($this->firephp) 
-            {
-            	$this->counter['getR']++;
-            	$timer = \lw_timer::getInstance('getR'.$this->counter['getR']);
-            	$timer->start();
-            }
-        	if ($this->dbdbg) echo "\n\n<!-- ".$sql." :  ";
             $stmt   = oci_parse($this->connect,$sql);
-            if ($this->dbdbg) echo $stmt." -->\n\n";
             $results= $this->dbexecute($stmt, 1);
             $count  = 0;
             $data   = array();
@@ -165,11 +137,6 @@ putenv('NLS_COMP=ANSI');
             {
                 $res['result'] = $data[0];
             }
-            if ($this->firephp) 
-            {
-				$timer->stop();
-            	$this->firephp->log($sql, $this->counter['getR'].'. lw_db_oracle getR aufgerufen ('.$timer->getAlloverTime().'sec)');	
-            }            
             return $res;
         }
     }
@@ -253,8 +220,6 @@ putenv('NLS_COMP=ANSI');
 
     public function dbquery($sql) 
     {
-        //$sql = $this->specialquote($sql);
-        if ($this->dbg) echo "query: ".$sql."<br>";
         if (empty($sql))
         {
             $this->error = "[db_Error] no sql passed";
@@ -262,21 +227,8 @@ putenv('NLS_COMP=ANSI');
         }
         else 
         {
-            if ($this->firephp) 
-            {
-            	$this->counter['dbquery']++;
-            	$timer = \lw_timer::getInstance('dbquery'.$this->counter['dbquery']);
-            	$timer->start();
-            }
-        	if ($this->dbdbg) echo "\n\n<!-- ".$sql." :-: ";
             $stmt       = oci_parse($this->connect,$sql);
-            if ($this->dbdbg) echo $stmt." -->\n\n";
             $results    = $this->dbexecute($stmt);
-	        if ($this->firephp) 
-	        {
-	          	$timer->stop();
-	          	$this->firephp->log($sql, $this->counter['dbquery'].'. lw_db_oracle dbquery aufgerufen ('.$timer->getAlloverTime().'sec)');
-	        }             
         }
           
         if (!$results) 
@@ -290,8 +242,6 @@ putenv('NLS_COMP=ANSI');
     
     public function dbinsert($sql, $table="") 
     {
-        //$sql = $this->specialquote($sql);
-        if ($this->dbg) echo "insert: ".$sql."<br>";
         if (empty($sql))
         {
             $this->error = "[db_Error] no sql passed";
@@ -304,29 +254,16 @@ putenv('NLS_COMP=ANSI');
         }
         else 
         {
-            if ($this->firephp) 
-            {
-            	$this->counter['dbinsert']++;
-            	$timer = \lw_timer::getInstance('dbinsert'.$this->counter['dbinsert']);
-            	$timer->start();
-            }
         	$stmt       = oci_parse($this->connect,$sql." returning ROWID into :rid");
-            if ($this->dbg) echo "stmt: ".$stmt."<br>";
             $rowid      = oci_new_descriptor($this->connect, OCI_D_ROWID);
             oci_bind_by_name($stmt, ":rid", $rowid, -1, OCI_B_ROWID);
             $results    = $this->dbexecute($stmt);
             $stmt2      = oci_parse($this->connect,"SELECT id FROM ".$table." WHERE ROWID = :rid");
-            if ($this->dbg) echo "stmt2: ".$stmt2."<br>";
             oci_bind_by_name($stmt2,":rid",$rowid,-1,OCI_B_ROWID);
             $results2   = $this->dbexecute($stmt2);
             oci_fetch($stmt2);
             $data[0][strtolower(oci_field_name($stmt2,1))] = oci_result($stmt2,oci_field_name($stmt2,1));
             $erg        = $data[0][id];
-            if ($this->firephp) 
-	        {
-	          	$timer->stop();
-	          	$this->firephp->log($sql, $this->counter['dbinsert'].'. lw_db_oracle dbinsert aufgerufen ('.$timer->getAlloverTime().'sec)');
-	        }
         }
         if (!$results) 
         {
@@ -345,29 +282,16 @@ putenv('NLS_COMP=ANSI');
     
     public function saveClob($table, $field, $data, $id) 
     {
-        if ($this->firephp) 
-        {
-            $this->counter['saveClob']++;
-            $timer = \lw_timer::getInstance('saveClob'.$this->counter['saveClob']);
-            $timer->start();
-        }
     	if (!$data) $data = " ";
         $clob = oci_new_descriptor($this->connect, OCI_D_LOB);
-        if ($this->dbg) echo "save_clob: UPDATE $table SET $field = EMPTY_CLOB() WHERE id='$id' returning $field into :the_blob <br>";
         $stmt = oci_parse($this->connect,"UPDATE $table SET $field = EMPTY_CLOB() WHERE id='$id' returning $field into :the_blob");
         oci_bind_by_name($stmt, ':the_blob', $clob, -1, OCI_B_CLOB);
-        if ($this->dbg) echo "stmt: ".$stmt."<br>";
         $this->dbexecute($stmt, 1);
         $data = str_replace("''", "'", $data);
         $ok = $clob->save($data);
         OCIFreeDesc($clob);
         oci_free_statement($stmt);
         oci_commit($this->connect);
-        if ($this->firephp) 
-        {
-          	$timer->stop();
-          	$this->firephp->log("UPDATE $table SET $field = EMPTY_CLOB() WHERE id='$id' returning $field into :the_blob", $this->counter['saveClob'].'. lw_db_oracle saveClob aufgerufen ('.$timer->getAlloverTime().'sec)');
-        }       
         return $ok;
     }
 
@@ -378,7 +302,6 @@ putenv('NLS_COMP=ANSI');
             $this->error = "[db_error] empty statement !";
             return false;
         }
-        if ($this->dbdbg) echo "\n\n<!-- dbexecute: ".$stmt." -->\n\n";
         if ($this->transaction || $flag)
         {
             return oci_execute($stmt, OCI_DEFAULT);
@@ -503,5 +426,3 @@ putenv('NLS_COMP=ANSI');
 		}
 	}	
 }
-
-?>

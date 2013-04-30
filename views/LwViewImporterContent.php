@@ -28,7 +28,7 @@ class LwViewImporterContent extends \lwTabletools\views\LwTabletoolsView
     {
         $this->event = $event;
         $this->view = new \lwTabletools\libraries\LwView( dirname(__FILE__) . '/templates/importer/content.tpl.phtml' );
-        $this->view->url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']."?obj=".$request->getAlnum("obj")."&module=".$request->getAlnum("module")."&import=1";
-        $this->view->url_base = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']."?obj=".$request->getAlnum("obj")."&module=".$request->getAlnum("module");
+        $this->view->url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']."?obj=".$request->getAlnum("obj")."&module=".$request->getAlnum("module")."&import=1";
+        $this->view->url_base = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']."?obj=".$request->getAlnum("obj")."&module=".$request->getAlnum("module");
     }
 }

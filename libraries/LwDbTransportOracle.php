@@ -30,7 +30,7 @@ class LwDbTransportOracle implements \lwTabletools\libraries\LwVendorDBTransport
 		$this->debug = $debug;
 	}
 
-    public function setDB(lw_db $db)
+    public function setDB(\lwTabletools\libraries\LwDb $db)
     {
         $this->db = $db;
     }
